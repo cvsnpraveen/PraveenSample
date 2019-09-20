@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { PostData } from './PostData';
 
 class AllPosts extends Component {
+  parseTaskType = (task) => {
+    switch (task) {
+      case "HIGH": 
+          return "alert-danger";
+      case "MEDIUM": 
+          return "alert-warning";
+      case "LOW": 
+          return "alert-primary";
+      case "COMPLETED": 
+          return "alert-secondary";
+      default: 
+      return "alert-info";
+    }
+  }
   render() {
-    console.log("props=>", this.props);
+    const { tasks } = this.props;
     return (
-      <div className="AllPosts">
-        <h1>All Posts</h1>
+      <fieldset className="AllPosts col-sm-6">
+        <legend>All Tasks</legend>
         <div className="comment">
           {
-            this.props.posts && this.props.posts.length > 0 ?
-              this.props.posts.map((post, index) => <PostData key={index} posts={post}></PostData>) : "No Posts available to Display"
+            tasks && tasks.length > 0 ?
+              tasks.map((task, i) => <PostData key={i} type={this.parseTaskType(task.priority)} taskInfo={task}></PostData>) : "No Tasks are available... "
           }
         </div>
-      </div>
+      </fieldset>
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    posts: state
-  }
-}
-
-export default connect(mapStateToProps)(AllPosts);
+export default AllPosts;

@@ -15,6 +15,15 @@ code {
 
 /* Css */
 
-h1, input, textarea, button, .comment{
+h1, input, textarea, button, .comment, select{
   margin: 0 20px;
+}
+
+.AllPosts {
+  border: 2px dashed #333;
+}
+.AllPosts legend {
+  width: auto;
+  margin: 10px;
+  padding: 0 10px;
 }

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-export const PostData = (props) => (
-    <React.Fragment>
-        <div className="card">
-            <div className="card-header">{props.posts.postTitle}</div>
-            <div className="card-body">{props.posts.comment}</div>
-        </div>
-    </React.Fragment>
+export const PostData = ({ taskInfo, type }) => (
+    <div className={`alert ${type} fade in alert-dismissible show`}>
+        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong>{taskInfo.taskTitle}</strong> on {taskInfo.schedule}
+    </div>
 )

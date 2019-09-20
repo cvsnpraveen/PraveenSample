@@ -1,49 +1,26 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 class PostForm extends Component {
-  constructor(props) {
-    super(props);
-    const state = {
-      id: new Date(),
-      title: "",
-      message: ""
-    }
-  }
-
-  handleChange = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("state=>", this.state);
-    console.log("props=>", this.props);
-    this.props.dispatch({
-      type: 'ADD_POST',
-      data: this.state
-    })
-  }
   render() {
+    const { change, submit, form } = this.props;
     return (
-      <div className="PostForm">
-        <h1>Create Post</h1>
+      <div className="PostForm col-sm-6">
+        <h1>Add Task</h1>
         <br />
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" name="postTitle" onChange={this.handleChange} placeholder="Enter Post Title" required /><br /><br />
-          <textarea rows="5" cols="28" name="comment" onChange={this.handleChange} placeholder="Enter Post" required></textarea><br /><br />
-          <button>Post</button>
+        <form onSubmit={submit}>
+          <input type="text" name="taskTitle" onChange={change} value={form.taskTitle} placeholder="Enter Task" required /><br /><br />
+          <input type="date" name="schedule" onChange={change} value={form.schedule} placeholder="Enter Task" required /><br /><br />
+          <select name="priority" value={form.priority} onChange={change}>
+            <option value="">--SELECT PRIORITY--</option>
+            <option value="HIGH">HIGH</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="LOW">LOW</option>
+          </select> <br /> <br />
+          <textarea rows="5" defaultValue={form.description} cols="35" name="description" onChange={change} placeholder="More details plz... (Optional)"></textarea><br /><br />
+          <button>Add Task</button>
         </form>
       </div>
     )
   }
-} 
-
-const mapStateToProps = (state) => {
-  return {
-    posts: state
-  }
 }
-export default connect(mapStateToProps)(PostForm);
+
+export default PostForm;
